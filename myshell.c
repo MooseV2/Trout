@@ -33,13 +33,26 @@ int main(int argc, char *argv[])
     // Perform an infinite loop getting command input from users
     while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
     {
+        buffer[strcspn(buffer, "\n")] = 0; // Strip newlines
+        char *item = NULL, *token = NULL, *args[10] = {NULL};
+        char *tokens = strtok(buffer, " ");
+        size_t arg_count = 0;
+        while (tokens != NULL) {
+            args[arg_count++] = tokens;
+            tokens = strtok(NULL, " ");
+        }
+        size_t i;
+        for (i=0;i<arg_count;++i) {
+            printf("%d: %s\n", i, args[i]);
+        }
+        strcpy(command, args[0]);
         // Perform string tokenization to get the command and argument
-
+       
         // Check the command and execute the operations for each command
         // cd command -- change the current directory
         if (strcmp(command, "cd") == 0)
         {
-            // your code here
+            printf("Running CD command\n");
         }
 
         // other commands here...
